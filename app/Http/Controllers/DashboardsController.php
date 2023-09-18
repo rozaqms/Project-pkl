@@ -60,6 +60,9 @@ class DashboardsController extends Controller
 
         $pendapatanhariIni = Pendapatan::WhereDate('created_at',  now()->toDateString())
         ->sum('total_price');
+
+        $pengeluaranhariini = Pengeluaran::WhereDate('created_at',  now()->toDateString())
+        ->sum('price');
             
         $quantityBulanIni = Pendapatan::whereMonth('created_at', $bulanSekarang)
             ->whereYear('created_at', $tahunSekarang)
@@ -80,6 +83,7 @@ class DashboardsController extends Controller
         $penjualanTerjual = $pendapatanBulanIni->sum('total_price');
         $targetPenjualan = $targetP->sum('tujuan_penghasilan');
         $pengeluaranT = $pengeluaranBulanIni->sum('price');
+        $pendaparanbersihhariini = $pendapatanhariIni - $pengeluaranhariini;
 
         // Pastikan $targetPenjualan tidak null dan bukan nol sebelum melakukan pembagian
         if (!is_null($targetPenjualan) && $targetPenjualan != 0) {
@@ -141,7 +145,7 @@ class DashboardsController extends Controller
     
 
         
-        return view('dashboard', compact('persentaseTerjual','penghasilantahun','monthlyExpensesPenghasilan','pendapatanhariIni', 'pendapatanBersih','penjualanTerjual', 'dailyExpenses','pengeluaranT','weeklyExpensesPenghasilan','stockterjual','categoryData1','category','stockterjualkategori','totalquantity','targetPenjualan'), [
+        return view('dashboard', compact('persentaseTerjual','penghasilantahun','monthlyExpensesPenghasilan','pendaparanbersihhariini', 'pendapatanBersih','penjualanTerjual', 'dailyExpenses','pengeluaranT','weeklyExpensesPenghasilan','stockterjual','categoryData1','category','stockterjualkategori','totalquantity','targetPenjualan'), [
             "title" => "Dashboard",
             'categoryData' => $categoryData,
     ]);
