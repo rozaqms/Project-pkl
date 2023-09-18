@@ -94,6 +94,6 @@
     @push('kt_charts_penjualan')
     <script>
             var weeklyExpensesPeng = @json($pendapatanBersih);
-            var monthlyExpensesPenghasilan = @json($monthlyExpensesPenghasilan);
+            var monthlyExpensesPenghasilan = @json($monthlyExpensesbersih);
         </script>
     @endpush
